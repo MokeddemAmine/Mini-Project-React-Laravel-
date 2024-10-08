@@ -31,13 +31,13 @@ class AuthController extends Controller
         if(!Auth::attempt($credentials)){
             return response([
                 'message' => 'credentials dont much our records',
-            ]);
+            ],422);
         }
         /** @var User $user */
         $user = Auth::user();
         $token = $user->createToken('main')->plainTextToken;
 
-        return response(compact('user,token'));
+        return response(compact('user','token'));
 
     }
     public function logout(Request $request){

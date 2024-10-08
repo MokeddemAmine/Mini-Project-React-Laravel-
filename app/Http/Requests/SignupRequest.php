@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\Rules\Password as RulesPassword;
 
 class SignupRequest extends FormRequest
 {
@@ -27,11 +28,14 @@ class SignupRequest extends FormRequest
             'email' => ['required','email','unique:users,email'],
             'password' => [
                 'required',
+                'string',
                 'confirmed',
-                Password::min(8)
+                RulesPassword::min(8)
                 ->letters()
                 ->symbols()
-            ]
+            ],
+            'password_confirmation' => ['required','string','min:8']
+
         ];
     }
 }
